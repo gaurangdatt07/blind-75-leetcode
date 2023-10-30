@@ -1,6 +1,7 @@
 package org.gaurang.solutions.array_strings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Array_StringsImpl implements Array_Strings{
@@ -21,13 +22,36 @@ public class Array_StringsImpl implements Array_Strings{
 
     @Override
     public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
-        int maxCandles=-1;
         List<Boolean> finalList= new ArrayList<>();
-        for(Integer each:candies){
-            if(each+extraCandies>maxCandles){maxCandles=each;}
-            finalList.add(each+extraCandies>maxCandles);
+        int max = 0;
+        for(int i = 0;i<candies.length;i++){
+            if(candies[i] >= max){
+                max = candies[i];
+            }
+        }
+        for(Integer each:candies) {
+            finalList.add(each+extraCandies>=max);
         }
         return finalList;
     }
+
+
+    @Override
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int count = 0;
+        int i = 0;
+        while (i < flowerbed.length) {
+            if (flowerbed[i] == 0) {
+                boolean canPlant = (i == 0 || flowerbed[i - 1] == 0) && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0);
+                if (canPlant) {
+                    flowerbed[i] = 1;
+                    count++;
+                }
+            }
+            i++;
+        }
+        return count >= n;
+    }
+
 }
 
