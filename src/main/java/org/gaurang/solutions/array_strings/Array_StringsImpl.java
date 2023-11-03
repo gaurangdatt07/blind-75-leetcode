@@ -3,6 +3,7 @@ package org.gaurang.solutions.array_strings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Array_StringsImpl implements Array_Strings{
     @Override
@@ -53,5 +54,31 @@ public class Array_StringsImpl implements Array_Strings{
         return count >= n;
     }
 
+    @Override
+    public String gcdOfStrings(String str1, String str2) {
+        return (str1 + str2).equals(str2 + str1) ?str1.substring(0,gcd(str1.length(),str2.length())):"";
+
+    }
+
+    private int gcd(int length, int length1) {
+        return length1==0?length:gcd(length1,length%length1);
+    }
+
+    @Override
+    public String reverseVowels(String s) {
+        List<Character> vowelsList=Arrays.asList('a','e','i','o','u','A','E','I','O','U');
+        Stack<Integer> vowelStack = new Stack();
+        StringBuilder newString= new StringBuilder();
+        for(int i = 0 ; i <s.length();i++){
+            if(vowelsList.contains(s.charAt(i))){
+                vowelStack.push(i);
+            }
+        }
+        for(int i = 0 ;i<s.length();i++){
+          newString.append(vowelsList.contains(s.charAt(i)) ?
+                  s.charAt(vowelStack.pop()) : s.charAt(i));
+        }
+        return newString.toString();
+    }
 }
 
